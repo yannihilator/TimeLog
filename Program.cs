@@ -36,9 +36,14 @@ namespace TimeLog
                     counter++;
                 }
             }
-            else Console.WriteLine("No entries for today\n");
+            else Console.WriteLine("No entries for today");
             Console.WriteLine("\n*******************************************");
 
+            GeneralActions();
+        }
+
+        static void GeneralActions()
+        {
             //action part of the UI begins here
             Console.WriteLine("\nAvailable Actions: \n");
             Console.WriteLine("-###       |   Entry ID to take an action for it.");
@@ -49,7 +54,7 @@ namespace TimeLog
 
             if (output != string.Empty && output.All(x => char.IsNumber(x)))
             {
-                Console.WriteLine("what action would you like to take");
+                ItemActions(Convert.ToInt32(output));
             }
             else if(output == string.Empty)
             {
@@ -58,11 +63,18 @@ namespace TimeLog
             }
             else if (output.ToLower() == "total")
             {
-
+                //outputs daily totals by charge numbers
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                foreach (var group in Controller.TodaysEntriesByChargeNumber())
+                {
+                    Console.WriteLine($"{group.Key} - {group.Select(x => x.EndTime - x.StartTime).Aggregate(TimeSpan.Zero, (t1, t2) => t1 + t2).ToString("hh\\:mm\\:ss")}");
+                }
+                Console.ResetColor();
+                GeneralActions();
             }
             else if (output.ToLower() == "stop")
             {
-                
+                Environment.Exit(0);
             }
             else
             {
@@ -71,12 +83,41 @@ namespace TimeLog
             }
         }
 
-        static void TimerTick()
+        private static void ItemActions(int itemId)
+        {
+            Console.WriteLine($"\nAvailable Actions for entry {itemId}: \n");
+            Console.WriteLine("-delete    |   Deletes Entry.");
+            Console.WriteLine("-edit      |   Start the timer.");
+            var output = Console.ReadLine();
+
+            if (output.ToLower() == "delete")
+            {
+                //outputs daily totals by charge numbers
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                foreach (var group in Controller.TodaysEntriesByChargeNumber())
+                {
+                    Console.WriteLine($"{group.Key} - {group.Select(x => x.EndTime - x.StartTime).Aggregate(TimeSpan.Zero, (t1, t2) => t1 + t2).ToString("hh\\:mm\\:ss")}");
+                }
+                Console.ResetColor();
+                GeneralActions();
+            }
+            else if (output.ToLower() == "edit")
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+                ItemActions(itemId);
+            }
+        }
+
+        private static void TimerTick()
         {
             Console.Write($"\r{(DateTime.Now - currentEntry.StartTime).ToString("hh\\:mm\\:ss")}");
         }
 
-        static void StartTimer()
+        private static void StartTimer()
         {
             if (currentEntry == null) currentEntry = new LogEntry();
             currentEntry.StartTime = DateTime.Now;

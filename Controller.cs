@@ -31,7 +31,7 @@ namespace TimeLog
         {
             return entries;
         }
-        
+
         public static List<LogEntry> GetTodaysLogEntries()
         {
             return entries?.Where(x => x.StartTime.Date == DateTime.Now.Date).ToList();
@@ -51,6 +51,11 @@ namespace TimeLog
             entry.Id = GetNextId();
             entries.Add(entry);
             File.WriteAllText("/Users/yanni/Documents/Repos/TimeLog/data.json", SerializedEntries());
+        }
+
+        public static List<IGrouping<string, LogEntry>> TodaysEntriesByChargeNumber()
+        {
+            return entries.Where(x => x.StartTime.Date == DateTime.Now.Date).GroupBy(x => x.ChargeNumber).ToList();
         }
     }
 }
