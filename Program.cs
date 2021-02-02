@@ -40,14 +40,14 @@ namespace TimeLog
             Console.WriteLine("\n*******************************************");
 
             //action part of the UI begins here
-            Console.WriteLine("\nAvailable Actions: \n\n");
-            Console.WriteLine("-###       |   Entry ID to take an action for it.\n");
-            Console.WriteLine("-[Enter]   |   Start the timer.\n");
-            Console.WriteLine("-total     |   Show daily totals.\n");
-            Console.WriteLine("-stop      |   Exit Application.\n");
+            Console.WriteLine("\nAvailable Actions: \n");
+            Console.WriteLine("-###       |   Entry ID to take an action for it.");
+            Console.WriteLine("-[Enter]   |   Start the timer.");
+            Console.WriteLine("-total     |   Show daily totals.");
+            Console.WriteLine("-stop      |   Exit Application.");
             var output = Console.ReadLine();
 
-            if (output.All(x => char.IsNumber(x)))
+            if (output != string.Empty && output.All(x => char.IsNumber(x)))
             {
                 Console.WriteLine("what action would you like to take");
             }
