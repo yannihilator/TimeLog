@@ -56,6 +56,18 @@ namespace TimeLog
             SaveToDataFile();
         }
 
+        public static void UpdateEntry(LogEntry entry)
+        {
+            var oldEntry = entries.Where(x => x.Id == entry.Id).FirstOrDefault();
+            if (oldEntry != null)
+            {
+                entries.Remove(oldEntry);
+                entries.Add(entry);
+                entries = entries.OrderBy(x => x.StartTime).ToList();
+                SaveToDataFile();
+            }
+        }
+
         public static List<IGrouping<string, LogEntry>> TodaysEntriesByChargeNumber()
         {
             return entries.Where(x => x.StartTime.Date == DateTime.Now.Date).GroupBy(x => x.ChargeNumber).ToList();

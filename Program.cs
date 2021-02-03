@@ -25,7 +25,10 @@ namespace TimeLog
             Console.Clear();
             //Populates Today's entries part of the UI       
             var entries = Controller.entries.Where(x => x.StartTime.Date == DateTime.Now.Date).ToList();
-            Console.WriteLine($"\nEntries for today, {DateTime.Now.ToShortDateString()}");
+            Console.Write($"\nEntries for today, ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write($"{DateTime.Now.ToShortDateString()}\n");
+            Console.ResetColor();
             Console.WriteLine("*******************************************\n");
             Console.ForegroundColor = ConsoleColor.Magenta;
             if (entries?.Count > 0)
@@ -93,19 +96,72 @@ namespace TimeLog
             Console.WriteLine("-edit      |   Start the timer.");
             var output = Console.ReadLine();
 
-            if (output.ToLower() == "delete")
+            switch (output.ToLower())
             {
-                Controller.DeleteEntry(itemId);
-                UserInterface();
-            }
-            else if (output.ToLower() == "edit")
-            {
-                
-            }
-            else
-            {                              
-                InvalidInput();
-                ItemActions(itemId);
+                case "delete":
+                {
+                    Controller.DeleteEntry(itemId);
+                    UserInterface();
+                    break;
+                }
+                case "edit":
+                {                  
+                    LogEntry oldEntry = Controller.entries.Where(x => x.Id == itemId).FirstOrDefault();
+                    LogEntry updatedEntry = new LogEntry()
+                    {
+                        Id = oldEntry.Id,
+                        StartTime = oldEntry.StartTime,
+                        EndTime = oldEntry.EndTime,
+                        ChargeNumber = oldEntry.ChargeNumber,
+                        Description = oldEntry.Description
+                    };
+
+                    Console.WriteLine($"\nWhat would you like to edit?\n");
+                    Console.WriteLine("-start       |   Start Time");
+                    Console.WriteLine("-end         |   End Time");
+                    Console.WriteLine("-charge      |   Charge Number");
+                    Console.WriteLine("-description |   Item Description");
+                    var attribute = Console.ReadLine();
+
+                    switch (attribute.ToLower())
+                    {
+                        case "start":
+                        {
+                            Console.WriteLine("Type in a new start time in military time (hh:mm:ss) or press the enter key to keep the old value.");
+                            var newStart = ConvertTime(Console.ReadLine(), oldEntry.StartTime.Date);
+                            if (newStart != null) updatedEntry.StartTime = newStart.Value;
+                            else updatedEntry.StartTime = oldEntry.StartTime;
+                            break;
+                        }
+                        case "end":
+                        {
+                            Console.WriteLine("Type in a new end time in military time (hh:mm:ss) or press the enter key to keep the old value.");
+                            var newEnd = ConvertTime(Console.ReadLine(), oldEntry.EndTime.Date);
+                            if (newEnd != null) updatedEntry.EndTime = newEnd.Value;
+                            else updatedEntry.EndTime = oldEntry.EndTime;
+                            break;
+                        }
+                        case "charge":
+                        {
+                            updatedEntry.ChargeNumber = ChooseChargeNumber();
+                            break;
+                        }
+                        case "description":
+                        {
+                            Console.WriteLine("Please enter a new description.");
+                            updatedEntry.Description = Console.ReadLine();
+                            break;
+                        }
+                    }
+                    Controller.UpdateEntry(updatedEntry);
+                    break;
+                }
+                default:
+                {
+                    InvalidInput();
+                    ItemActions(itemId);
+                    break;
+                }              
             }
         }
 
@@ -115,15 +171,18 @@ namespace TimeLog
             LogEntry oldEntry = Controller.entries.Where(x => x.Id == itemId).FirstOrDefault();
             Console.WriteLine($"Type in a new start time in military time (hh:mm:ss) or press the enter key to keep the old value.");
             var newStart = Console.ReadLine();
-            var newStartTime = ConvertTime(newStart, oldEntry.StartTime);
-            if (newStartTime != null) 
+            if (!string.IsNullOrEmpty(newStart))
             {
-                updatedEntry.StartTime = newStartTime.Value;
-            }
-            else
-            {
-                InvalidInput();
-                EditItemDialogue(itemId);
+                var newStartTime = ConvertTime(newStart, oldEntry.StartTime);
+                if (newStartTime != null) 
+                {
+                    updatedEntry.StartTime = newStartTime.Value;
+                }
+                else
+                {
+                    InvalidInput();
+                    EditItemDialogue(itemId);
+                }
             }
         }
 
@@ -140,6 +199,22 @@ namespace TimeLog
                     newTime.Minutes,
                     newTime.Seconds);               
             }
+            else return null;
+        }
+
+        private static string ChooseChargeNumber()
+        {
+            var chargeNumbers = Controller.ChargeNumbers();
+            int counter = 0;
+            foreach (string chargeNumber in chargeNumbers) 
+            {
+                Console.WriteLine($"{counter} - {chargeNumber}");
+                counter++;
+            }
+
+            var output = Console.ReadLine();
+            if (output.All(x => char.IsNumber(x))) return chargeNumbers[Convert.ToInt32(output)];
+            else if (output != string.Empty) return output;
             else return null;
         }
 
@@ -166,34 +241,14 @@ namespace TimeLog
             if (output == string.Empty) StopTimer();
         }
 
-        static void StopTimer()
+        private static void StopTimer()
         {
             timer.Stop();
             currentEntry.EndTime = DateTime.Now;
             Console.ResetColor();
             Console.WriteLine($"\nWhat is the charge number?\n");
             
-            var chargeNumbers = Controller.ChargeNumbers();
-            int counter = 0;
-            foreach (string chargeNumber in chargeNumbers) 
-            {
-                Console.WriteLine($"{counter} - {chargeNumber}");
-                counter++;
-            }
-
-            var output = Console.ReadLine();
-            if (output.All(x => char.IsNumber(x)))
-            {
-                currentEntry.ChargeNumber = chargeNumbers[Convert.ToInt32(output)];
-            }
-            else if (output != string.Empty)
-            {
-                currentEntry.ChargeNumber = output;
-            }
-            else
-            {
-                currentEntry.ChargeNumber = "null";
-            }
+            currentEntry.ChargeNumber = ChooseChargeNumber();
 
             Controller.AddEntry(currentEntry);
             currentEntry = null;
