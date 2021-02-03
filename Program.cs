@@ -76,7 +76,7 @@ namespace TimeLog
                 {
                     var groupTotal = group.Select(x => x.EndTime - x.StartTime).Aggregate(TimeSpan.Zero, (t1, t2) => t1 + t2);
                     total = total + groupTotal;
-                    Console.WriteLine($"{group.Key} - {groupTotal.ToString("hh\\:mm\\:ss")}");
+                    Console.WriteLine($"{groupTotal.ToString("hh\\:mm\\:ss")} - {group.Key}");
                 }
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"\nTotal Time Today: {total.ToString("hh\\:mm\\:ss")}");
