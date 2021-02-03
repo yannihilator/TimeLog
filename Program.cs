@@ -29,7 +29,6 @@ namespace TimeLog
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write($"{DateTime.Now.ToShortDateString()}\n");
             Console.ResetColor();
-            Console.WriteLine(AppContext.BaseDirectory);
             Console.WriteLine("*******************************************\n");
             Console.ForegroundColor = ConsoleColor.Magenta;
             if (entries?.Count > 0)

@@ -11,7 +11,7 @@ namespace TimeLog
     public static class Controller
     {
         public static List<LogEntry> entries;
-        private static string dataFilePath = "/Users/yanni/Documents/Repos/TimeLog/data.json";
+        private static string dataFilePath = $"{System.IO.Directory.GetCurrentDirectory()}/data.json";
 
         private static string SerializedEntries()
         {
