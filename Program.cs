@@ -29,6 +29,7 @@ namespace TimeLog
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write($"{DateTime.Now.ToShortDateString()}\n");
             Console.ResetColor();
+            Console.WriteLine(AppContext.BaseDirectory);
             Console.WriteLine("*******************************************\n");
             Console.ForegroundColor = ConsoleColor.Magenta;
             if (entries?.Count > 0)
@@ -78,8 +79,10 @@ namespace TimeLog
                     total = total + groupTotal;
                     Console.WriteLine($"{groupTotal.ToString("hh\\:mm\\:ss")} - {group.Key}");
                 }
+                Console.ResetColor();
+                Console.WriteLine("===========================================");
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"\nTotal Time Today: {total.ToString("hh\\:mm\\:ss")}");
+                Console.WriteLine($"Total Time Today: {total.ToString("hh\\:mm\\:ss")}");
                 Console.ResetColor();
                 GeneralActions();
             }

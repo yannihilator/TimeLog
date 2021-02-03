@@ -1,0 +1,12 @@
+/Users/yanni/Documents/Repos/TimeLog/bin/Release/netcoreapp3.1/TimeLog.deps.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Release/netcoreapp3.1/TimeLog.runtimeconfig.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Release/netcoreapp3.1/TimeLog.runtimeconfig.dev.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Release/netcoreapp3.1/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/bin/Release/netcoreapp3.1/TimeLog.pdb
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.csprojAssemblyReference.cache
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.AssemblyInfoInputs.cache
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.AssemblyInfo.cs
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.csproj.CoreCompileInputs.cache
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.pdb
+/Users/yanni/Documents/Repos/TimeLog/obj/Release/netcoreapp3.1/TimeLog.genruntimeconfig.cache
