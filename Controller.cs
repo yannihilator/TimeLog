@@ -10,31 +10,27 @@ namespace TimeLog
 {
     public static class Controller
     {
-        private static List<LogEntry> entries;
+        public static List<LogEntry> entries;
+        private static string dataFilePath = "/Users/yanni/Documents/Repos/TimeLog/data.json";
 
         private static string SerializedEntries()
         {
             return JsonSerializer.Serialize(entries);
         }
 
+        private static void SaveToDataFile()
+        {
+            File.WriteAllText(dataFilePath, SerializedEntries());
+        }
+
         public static void PopulateEntries()
         {
             List<LogEntry> _entries = new List<LogEntry>();
-            using (StreamReader r = new StreamReader("/Users/yanni/Documents/Repos/TimeLog/data.json"))
+            using (StreamReader r = new StreamReader(dataFilePath))
             {
                 string json = r.ReadToEnd();
                 if (json != null && json != string.Empty) entries = JsonSerializer.Deserialize<List<LogEntry>>(json);         
             }
-        }
-
-        public static List<LogEntry> GetAllLogEntries()
-        {
-            return entries;
-        }
-
-        public static List<LogEntry> GetTodaysLogEntries()
-        {
-            return entries?.Where(x => x.StartTime.Date == DateTime.Now.Date).ToList();
         }
 
         public static int GetNextId()
@@ -50,7 +46,14 @@ namespace TimeLog
         {
             entry.Id = GetNextId();
             entries.Add(entry);
-            File.WriteAllText("/Users/yanni/Documents/Repos/TimeLog/data.json", SerializedEntries());
+            SaveToDataFile();
+        }
+
+        public static void DeleteEntry(int entryId)
+        {
+            var _entry = entries.Where(x => x.Id == entryId).FirstOrDefault();
+            if (_entry != null) entries.Remove(_entry);
+            SaveToDataFile();
         }
 
         public static List<IGrouping<string, LogEntry>> TodaysEntriesByChargeNumber()
