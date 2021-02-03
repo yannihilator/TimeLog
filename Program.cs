@@ -69,12 +69,17 @@ namespace TimeLog
             else if (output.ToLower() == "totals")
             {
                 //outputs daily totals by charge numbers
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine();
+                TimeSpan total = new TimeSpan();
                 foreach (var group in Controller.TodaysEntriesByChargeNumber())
                 {
-                    Console.WriteLine($"{group.Key} - {group.Select(x => x.EndTime - x.StartTime).Aggregate(TimeSpan.Zero, (t1, t2) => t1 + t2).ToString("hh\\:mm\\:ss")}");
+                    var groupTotal = group.Select(x => x.EndTime - x.StartTime).Aggregate(TimeSpan.Zero, (t1, t2) => t1 + t2);
+                    total = total + groupTotal;
+                    Console.WriteLine($"{group.Key} - {groupTotal.ToString("hh\\:mm\\:ss")}");
                 }
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"\nTotal Time Today: {total.ToString("hh\\:mm\\:ss")}");
                 Console.ResetColor();
                 GeneralActions();
             }
