@@ -25,12 +25,12 @@ namespace TimeLog
 
         public static void PopulateEntries()
         {
-            List<LogEntry> _entries = new List<LogEntry>();
             using (StreamReader r = new StreamReader(dataFilePath))
             {
                 string json = r.ReadToEnd();
                 if (json != null && json != string.Empty) entries = JsonSerializer.Deserialize<List<LogEntry>>(json);         
             }
+            if (entries == null) entries = new List<LogEntry>();
         }
 
         public static int GetNextId()

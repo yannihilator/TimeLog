@@ -17,18 +17,19 @@ namespace TimeLog
 
             //Populates entries in memory and calls user interface to be populated
             Controller.PopulateEntries();
+            Console.ForegroundColor = ConsoleColor.White;
             UserInterface();
         }
 
         private static void UserInterface()
         {   
             Console.Clear();
-            //Populates Today's entries part of the UI       
+            //Populates Today's entries part of the UI      
             var entries = Controller.entries.Where(x => x.StartTime.Date == DateTime.Now.Date).ToList();
             Console.Write($"\nEntries for today, ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write($"{DateTime.Now.ToShortDateString()}\n");
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("*******************************************\n");
             Console.ForegroundColor = ConsoleColor.Magenta;
             if (entries?.Count > 0)
@@ -41,7 +42,7 @@ namespace TimeLog
                 }
             }
             else Console.WriteLine("No entries for today");
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\n*******************************************");
 
             GeneralActions();
@@ -78,11 +79,11 @@ namespace TimeLog
                     total = total + groupTotal;
                     Console.WriteLine($"{groupTotal.ToString("hh\\:mm\\:ss")} - {group.Key}");
                 }
-                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("===========================================");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Total Time Today: {total.ToString("hh\\:mm\\:ss")}");
-                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.White;
                 GeneralActions();
             }
             else if (output.ToLower() == "exit")
@@ -229,7 +230,7 @@ namespace TimeLog
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Invalid input. Please try again.");
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static void TimerTick()
@@ -252,7 +253,7 @@ namespace TimeLog
         {
             timer.Stop();
             currentEntry.EndTime = DateTime.Now;
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"\nWhat is the charge number?\n");
             
             currentEntry.ChargeNumber = ChooseChargeNumber();
