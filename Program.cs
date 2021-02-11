@@ -114,54 +114,7 @@ namespace TimeLog
                 }
                 case "edit":
                 {                  
-                    LogEntry oldEntry = Controller.entries.Where(x => x.Id == itemId).FirstOrDefault();
-                    LogEntry updatedEntry = new LogEntry()
-                    {
-                        Id = oldEntry.Id,
-                        StartTime = oldEntry.StartTime,
-                        EndTime = oldEntry.EndTime,
-                        ChargeNumber = oldEntry.ChargeNumber,
-                        Description = oldEntry.Description
-                    };
-
-                    Console.WriteLine($"\nWhat would you like to edit?\n");
-                    Console.WriteLine("-start       |   Start Time");
-                    Console.WriteLine("-end         |   End Time");
-                    Console.WriteLine("-charge      |   Charge Number");
-                    Console.WriteLine("-description |   Item Description");
-                    var attribute = Console.ReadLine();
-
-                    switch (attribute.ToLower())
-                    {
-                        case "start":
-                        {
-                            Console.WriteLine("Type in a new start time in military time (hh:mm:ss) or press the enter key to keep the old value.");
-                            var newStart = ConvertTime(Console.ReadLine(), oldEntry.StartTime.Date);
-                            if (newStart != null) updatedEntry.StartTime = newStart.Value;
-                            else updatedEntry.StartTime = oldEntry.StartTime;
-                            break;
-                        }
-                        case "end":
-                        {
-                            Console.WriteLine("Type in a new end time in military time (hh:mm:ss) or press the enter key to keep the old value.");
-                            var newEnd = ConvertTime(Console.ReadLine(), oldEntry.EndTime.Date);
-                            if (newEnd != null) updatedEntry.EndTime = newEnd.Value;
-                            else updatedEntry.EndTime = oldEntry.EndTime;
-                            break;
-                        }
-                        case "charge":
-                        {
-                            updatedEntry.ChargeNumber = ChooseChargeNumber();
-                            break;
-                        }
-                        case "description":
-                        {
-                            Console.WriteLine("Please enter a new description.");
-                            updatedEntry.Description = Console.ReadLine();
-                            break;
-                        }
-                    }
-                    Controller.UpdateEntry(updatedEntry);
+                    EditItemDialogue(itemId);
                     break;
                 }
                 default:
@@ -175,22 +128,63 @@ namespace TimeLog
 
         private static void EditItemDialogue(int itemId)
         {
-            LogEntry updatedEntry = new LogEntry();
             LogEntry oldEntry = Controller.entries.Where(x => x.Id == itemId).FirstOrDefault();
-            Console.WriteLine($"Type in a new start time in military time (hh:mm:ss) or press the enter key to keep the old value.");
-            var newStart = Console.ReadLine();
-            if (!string.IsNullOrEmpty(newStart))
+            LogEntry updatedEntry = new LogEntry()
             {
-                var newStartTime = ConvertTime(newStart, oldEntry.StartTime);
-                if (newStartTime != null) 
+                Id = oldEntry.Id,
+                StartTime = oldEntry.StartTime,
+                EndTime = oldEntry.EndTime,
+                ChargeNumber = oldEntry.ChargeNumber,
+                Description = oldEntry.Description
+            };
+
+            Console.WriteLine($"\nWhat would you like to edit?\n");
+            Console.WriteLine("-start       |   Start Time");
+            Console.WriteLine("-end         |   End Time");
+            Console.WriteLine("-charge      |   Charge Number");
+            Console.WriteLine("-description |   Item Description");
+            var attribute = Console.ReadLine();
+
+            bool update = true;
+            switch (attribute.ToLower())
+            {
+                case "start":
                 {
-                    updatedEntry.StartTime = newStartTime.Value;
+                    Console.WriteLine("Type in a new start time in military time (hh:mm:ss) or press the enter key to keep the old value.");
+                    var newStart = ConvertTime(Console.ReadLine(), oldEntry.StartTime.Date);
+                    if (newStart != null) updatedEntry.StartTime = newStart.Value;
+                    else updatedEntry.StartTime = oldEntry.StartTime;
+                    break;
                 }
-                else
+                case "end":
                 {
+                    Console.WriteLine("Type in a new end time in military time (hh:mm:ss) or press the enter key to keep the old value.");
+                    var newEnd = ConvertTime(Console.ReadLine(), oldEntry.EndTime.Date);
+                    if (newEnd != null) updatedEntry.EndTime = newEnd.Value;
+                    else updatedEntry.EndTime = oldEntry.EndTime;
+                    break;
+                }
+                case "charge":
+                {
+                    updatedEntry.ChargeNumber = ChooseChargeNumber();
+                    break;
+                }
+                case "description":
+                {
+                    Console.WriteLine("Please enter a new description.");
+                    updatedEntry.Description = Console.ReadLine();
+                    break;
+                }
+                default:
                     InvalidInput();
                     EditItemDialogue(itemId);
-                }
+                    update = false;
+                    break;
+            }
+            if (update) 
+            {
+                Controller.UpdateEntry(updatedEntry);
+                UserInterface();
             }
         }
 
