@@ -1,0 +1,16 @@
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/TimeLog
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/TimeLog.deps.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/TimeLog.runtimeconfig.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/TimeLog.runtimeconfig.dev.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/ref/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net5.0/TimeLog.pdb
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.csproj.AssemblyReference.cache
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.GeneratedMSBuildEditorConfig.editorconfig
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.AssemblyInfoInputs.cache
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.AssemblyInfo.cs
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.csproj.CoreCompileInputs.cache
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/ref/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.pdb
+/Users/yanni/Documents/Repos/TimeLog/obj/Debug/net5.0/TimeLog.genruntimeconfig.cache

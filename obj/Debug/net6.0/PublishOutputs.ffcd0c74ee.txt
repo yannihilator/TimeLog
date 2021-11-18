@@ -1,0 +1,5 @@
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.dll
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.deps.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.runtimeconfig.json
+/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.pdb

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>TimeLog</id>
+    <version>1.0.0</version>
+    <authors>TimeLog</authors>
+    <description>Package Description</description>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file src="/Users/yanni/Documents/Repos/TimeLog/obj/DotnetToolSettings.xml" target="tools/net6.0/any/DotnetToolSettings.xml" />
+    <file src="/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.dll" target="tools/net6.0/any/TimeLog.dll" />
+    <file src="/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.deps.json" target="tools/net6.0/any/TimeLog.deps.json" />
+    <file src="/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.runtimeconfig.json" target="tools/net6.0/any/TimeLog.runtimeconfig.json" />
+    <file src="/Users/yanni/Documents/Repos/TimeLog/bin/Debug/net6.0/publish/TimeLog.pdb" target="tools/net6.0/any/TimeLog.pdb" />
+  </files>
+</package>
