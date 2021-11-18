@@ -1,7 +1,7 @@
 # TimeLog
 Time Log is a .NET Core console application that helps you track your workday conveniently while keeping all of your data in a flat JSON file. As an initial solution, its target user was one who was familiar with the command line interface.
 
-To install the tool, invoke the following command in bash:
+To install the tool, invoke the following command in bash with the .NET SDK:
 ```console
 dotnet tool install --global TimeLog --version 1.0.0
 ```
