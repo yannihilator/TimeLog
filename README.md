@@ -5,3 +5,8 @@ To install the tool, invoke the following command in bash:
 ```console
 dotnet tool install --global TimeLog --version 1.0.0
 ```
+
+Anytime you would like to start the tool from your CLI, invoke the following command:
+```console
+timelog
+```
